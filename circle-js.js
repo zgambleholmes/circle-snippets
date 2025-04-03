@@ -1,4 +1,16 @@
+
+
+
 // ----------------------------------------------
+// 🔹 Cancer Delta Custom Script for Circle.so (SPA-Proof)
+// ----------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    const TARGET_BOT_PREFIX = "https://search.cancerdelta.ai/messages/bot/";
+    const SIGNUP_URL = "https://app.cancerdelta.ai/sign_up";
+    const INTERNAL_DOMAIN = "cholangio.cancerdelta.app";
+  
+
+    // ----------------------------------------------
 // 🔹 Cancer Delta Debug Mode: Verify Script Load + DOM Events
 // ----------------------------------------------
 
@@ -28,15 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-// ----------------------------------------------
-// 🔹 Cancer Delta Custom Script for Circle.so (SPA-Proof)
-// ----------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    const TARGET_BOT_PREFIX = "https://search.cancerdelta.ai/messages/bot/";
-    const SIGNUP_URL = "https://app.cancerdelta.ai/sign_up";
-    const INTERNAL_DOMAIN = "cholangio.cancerdelta.app";
-  
     // ---------------------------
     // Utility: User status checks
     function isUserLoggedOut() {
