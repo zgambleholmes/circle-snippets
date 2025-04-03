@@ -18,61 +18,64 @@ document.addEventListener('DOMContentLoaded', function () {
     // ---------------------------
     // UI updates
     function updateSearchPopupUI() {
-      const input = document.querySelector('input[placeholder="Search or ask a question"]');
-      const emptySearch = document.querySelector('[data-testid="empty-search"]');
-      const loggedOut = isUserLoggedOut();
-  
-      if (input) {
-        input.placeholder = loggedOut
-          ? "Search Cancer Delta"
-          : "Search or ask Delta AI a question";
-      }
-  
-      if (emptySearch) {
-        const centerSVG = emptySearch.querySelector("svg.icon-24-search-v2");
-        if (centerSVG && !emptySearch.querySelector(".delta-popup-logo")) {
+        const loggedOut = isUserLoggedOut();
+        const emptySearch = document.querySelector('[data-testid="empty-search"]');
+        const input = document.querySelector('input[type="search"]');
+      
+        // ✅ Force placeholder override
+        if (input) {
+          input.setAttribute(
+            "placeholder",
+            loggedOut
+              ? "Search Cancer Delta"
+              : "Search or ask Delta AI a question"
+          );
+        }
+      
+        // ✅ If the container doesn’t exist yet, retry in 200ms
+        if (!emptySearch) {
+          setTimeout(updateSearchPopupUI, 200);
+          return;
+        }
+      
+        // ✅ Inject Delta icon if not already replaced
+        const existingIcon = emptySearch.querySelector("svg.icon-24-search-v2");
+        const alreadyHasLogo = emptySearch.querySelector(".delta-popup-logo");
+        if (existingIcon && !alreadyHasLogo) {
           const logo = document.createElement("img");
           logo.src = "https://www.cancerdelta.ai/images/icon.png";
           logo.alt = "Delta AI Logo";
           logo.className = "delta-popup-logo";
           logo.style.width = "40px";
           logo.style.height = "40px";
-          centerSVG.replaceWith(logo);
+          logo.style.margin = "0 auto";
+          existingIcon.replaceWith(logo);
         }
-  
-        const heading = emptySearch.querySelector("h1, h2, h5");
-        if (heading) {
-          heading.textContent = loggedOut
-            ? "Join Cancer Delta to Unlock Delta AI"
-            : "Ask Delta AI or Search the Community";
-        }
-  
-        const subtext = heading?.nextElementSibling;
-        if (subtext) {
-          subtext.innerHTML = loggedOut
-            ? `<br>Sign up now to access Delta AI's insights, expert content, and community support.<br><br>
-                <button onclick="window.location.href='${SIGNUP_URL}'"
-                class="focus-visible:!outline-secondary font-bold transition-colors duration-200 focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-2 disabled:cursor-not-allowed px-8 py-3 w-full rounded-full bg-brand text-brand-button disabled:bg-disabled transition-opacity hover:opacity-90">
-                Join Cancer Delta Community
+      
+        // ✅ Force heading + message override (regardless of HTML tag)
+        const headings = emptySearch.querySelectorAll("h1, h2, h3, h4, h5");
+        headings.forEach((heading) => {
+          if (!heading.dataset.deltaInjected) {
+            heading.textContent = loggedOut
+              ? "Join Cancer Delta to Unlock Delta AI"
+              : "Ask Delta AI or Search the Community";
+            heading.dataset.deltaInjected = "true";
+          }
+      
+          // ✅ Rewrite subtext block
+          const subtext = heading.nextElementSibling;
+          if (subtext && !subtext.dataset.deltaInjected) {
+            subtext.innerHTML = loggedOut
+              ? `Sign up now to access Delta AI's insights, expert content, and community support.<br><br>
+                <button onclick="window.location.href='https://app.cancerdelta.ai/sign_up'"
+                  class="focus-visible:!outline-secondary font-bold transition-colors duration-200 focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-2 disabled:cursor-not-allowed px-8 py-3 w-full rounded-full bg-brand text-brand-button disabled:bg-disabled transition-opacity hover:opacity-90">
+                  Join Cancer Delta Community
                 </button>`
-            : `Get quick answers powered by AI, or explore insights from members, toolkits, discussions, and expert content across Cancer Delta.<br><br>
+              : `Get quick answers powered by AI, or explore insights from members, toolkits, discussions, and expert content across Cancer Delta.<br><br>
                 <em>I’m Delta AI, with a focus on Cholangiocarcinoma for now. I’ll be expanding to support other cancers in future updates to better serve our community.</em>`;
-        }
-      }
-  
-      const wrapper = input?.closest("div");
-      if (wrapper && !loggedOut) {
-        const leftIcon = wrapper.querySelector("svg.icon-search-v2");
-        if (leftIcon && !wrapper.querySelector(".delta-searchbar-icon")) {
-          const img = document.createElement("img");
-          img.src = "https://www.cancerdelta.ai/images/icon_circle.png";
-          img.alt = "Delta AI Icon";
-          img.className = "delta-searchbar-icon";
-          img.style.width = "22px";
-          img.style.height = "22px";
-          img.style.objectFit = "contain";
-          leftIcon.replaceWith(img);
-        }
+            subtext.dataset.deltaInjected = "true";
+          }
+        });
       }
     }
   
