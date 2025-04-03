@@ -1,0 +1,83 @@
+<!-- 🔹 Montserrat fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+
+<!-- 🔹 Load icons -->
+<link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.1/src/css/ph.css">
+
+<!-- 🔹 Load site fonts -->
+<!-- Load Poppins (headings) + Montserrat (body) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Default all text to Montserrat */
+  body, html {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+
+  * {
+    font-family: 'Montserrat', sans-serif !important;
+  }
+
+  /* Override key headers to use Poppins */
+  h1, h2, h3, h4, h5, h6,
+  .c-site-logo,
+  .c-sidebar-section__title,
+  .c-topic-title,
+  .c-card-title {
+    font-family: 'Poppins', sans-serif !important;
+  }
+  h1 { font-weight: 300 !important; }
+
+  /* 🔹 Icon hover & active filters (light + dark mode support) */
+  .c-sidebar a[aria-current="page"] img,
+  .group a[aria-current="page"] img {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  html:not(.dark) .c-sidebar a:hover img,
+  html:not(.dark) .group a:hover img {
+    filter: brightness(0) saturate(100%) sepia(100%) hue-rotate(205deg) saturate(600%) brightness(90%) !important;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  html.dark .c-sidebar a:hover img,
+  html.dark .group a:hover img {
+    filter: invert(100%) brightness(200%) !important;
+    transition: filter 0.2s ease-in-out;
+  }
+
+  /* 🔹 Bookmarks bar styling */
+  #bookmarks-bar a {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6E8BF1 !important;
+    border-radius: 6px !important;
+    padding: 8px 16px !important;
+  }
+
+  #bookmarks-bar a {
+    border: 0px solid #E4E7EB !important;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .bg-primary.border-primary.scrollbar-hide.relative.flex.w-full.items-center.gap-1.overflow-x-scroll.border-b.px-6.lg\:px-9 {
+    height: 61px !important;
+  }
+
+  #bookmarks-bar a .text-sm {
+    font-weight: 500 !important;
+    line-height: 1.2;
+    margin-top: 1px;
+    color: #ffffff !important;
+  }
+
+  #bookmarks-bar .bg-primary.hover\:text-dark {
+    /* Optional container styles */
+  }
+
+  /* 🔹 Hide metadata under post cards */
+  .post--card__meta {
+    display: none !important;
+  }
+</style>
